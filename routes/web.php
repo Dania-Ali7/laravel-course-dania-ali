@@ -1,12 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-    /* حل المشروع الاول تمرير البينات من المتحكم الى الواجهة والعكس */
+    /* حل المشروع الاول تمرير البيانات من المتحكم الى الواجهة والعكس */
 Route::get(uri: '/about', action: function (){
     $name = 'Dania Ali';
     $phone ='0597298094';
@@ -41,7 +42,8 @@ Route::get('/register', function () {
         '1' => 'First Year',
         '2' => 'Second Year',
         '3' => 'Third Year',
-        '4' => 'Fourth Year'
+        '4' => 'Fourth Year',
+        '5' => 'Fifth Year'
     ];
 
     return view('register_student', compact('title', 'levels'));
@@ -59,4 +61,18 @@ Route::post('/register', function () {
     ];
 
     return view('register_student', compact('title', 'levels'));
+});
+
+
+//  2.  حل المشروع التاني التعامل مع قواعد البيانات في لارافل
+Route::get('courses', function () {
+    return view('courses');
+});
+
+Route::post('/store', function () {
+    $courseName = $_POST['name'];
+
+    DB::table('courses')->insert(values: ['name' => $courseName]);
+
+    return view ('courses');
 });
