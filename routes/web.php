@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -115,4 +116,21 @@ Route::post(uri: 'courses/update', action: function () {
     DB::table(table: 'courses')->where(column: 'id', operator: '=', value: $id)->update(['name' => $update_course_name]);
 
     return redirect(to: 'courses');
+});
+
+
+// 4. Fourth Project: Implement Users CRUD via Controllers and integrate Blade template inheritance
+Route::get(uri: 'users', action: [UserController::class, 'index']);
+
+Route::post(uri: 'users/create', action: [UserController::class, 'create']);
+
+Route::post(uri: 'users/delete/{id}', action: [UserController::class, 'destroy']);
+
+Route::post(uri: 'users/edit/{id}', action: [UserController::class, 'edit']);
+
+Route::post(uri: 'users/update', action: [UserController::class, 'update']);
+
+
+Route::get('app', function(){
+    return view('layouts.app');
 });
