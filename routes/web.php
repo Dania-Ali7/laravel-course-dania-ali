@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CourseController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -134,3 +135,12 @@ Route::post(uri: 'users/update', action: [UserController::class, 'update']);
 Route::get('app', function(){
     return view('layouts.app');
 });
+
+
+
+// 5. Fifth Project: Refactor database operations to Eloquent ORM and implement full CRUD for Courses and Users
+Route::get('courses', [CourseController::class, 'index']);
+Route::post('store', [CourseController::class, 'create']);
+Route::post('courses/delete/{id}', [CourseController::class, 'destroy']);
+Route::post('courses/edit/{id}', [CourseController::class, 'edit']);
+Route::post('courses/update', [CourseController::class, 'update']);
